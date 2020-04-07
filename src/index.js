@@ -16,7 +16,6 @@ const app = express()
 app.use(morgan('dev'))
 
 asteroid('2020-04-17', '2020-04-24')
-	.then(data => data[0])
 	.then(console.log)
 	.catch(console.error)
 
