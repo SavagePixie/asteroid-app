@@ -2,10 +2,10 @@
 const S = require('sanctuary')
 
 const request = require('lib/request')
+const { take } = require('lib/helper')
 
 const getAsteroidInfo = num => S.pipe([
-	S.take(num),
-	S.fromMaybe([]),
+	take(num),
 	S.map(writeInfo),
 ])
 
@@ -37,8 +37,9 @@ const writeInfo = asteroid =>
 module.exports = ({ host, path, key }) => (start, end) => request({
 	host,
 	path: `${path}?start_date=${start}&end_date=${end}&api_key=${key}`
-}).then(({ body }) => S.pipe([
+}).then(S.pipe([
+	S.prop('body'),
 	JSON.parse,
 	parseResponse,
-	getAsteroidInfo(1)
-])(body))
+	getAsteroidInfo(1),
+]))
