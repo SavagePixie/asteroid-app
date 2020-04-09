@@ -1,4 +1,5 @@
 'use strict'
+const S = require('sanctuary')
 const express = require('express')
 const morgan = require('morgan')
 const twilio = require('twilio')
@@ -11,6 +12,8 @@ const asteroid = require('lib/asteroid')({
 })
 const cat = require('lib/cat')
 
+const { addText, downcase, questionify } = require('lib/helper')
+
 const twiClient = new twilio(conf.twilioSid, conf.twilioToken)
 const app = express()
 
@@ -20,9 +23,14 @@ asteroid('2020-04-17', '2020-04-24')
 	.then(console.log)
 	.catch(console.error)
 
-cat('Sorry, I didn\'t understand your request, but did you know that')
+cat()
+	.then(S.pipe([
+		downcase,
+		questionify,
+		addText('Sorry, I didn\'t understand your request, but did you know that'),
+	]))
 	.then(console.log)
-	
+
 app.listen(conf.port, () => {
 	console.log(`Listening on port ${conf.port}`)
 })
