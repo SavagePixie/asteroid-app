@@ -12,5 +12,6 @@ module.exports = () => request(opts)
 	.then(R.pipe(
 		R.prop('body'),
 		JSON.parse,
-		R.prop('fact')
+		R.prop('fact'),
+		x => [ x ]
 	))
