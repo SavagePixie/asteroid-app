@@ -8,10 +8,13 @@ const checkKeyWords = str => str.includes('asteroid') && str.includes('close')
 module.exports = str => {
 	if (checkKeyWords(str)) {
 		return ({
-			start: formatDate(new Date()),
-			end: formatDate(new Date())
+			result: 'ok',
+			payload: {
+				start: formatDate(new Date()),
+				end: formatDate(new Date()),
+			}
 		})
 	} else {
-		return null
+		return ({ result: 'notOk' })
 	}
 }
