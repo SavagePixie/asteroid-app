@@ -1,5 +1,5 @@
 'use strict'
-const S = require('sanctuary')
+const R = require('ramda')
 
 const request = require('lib/request')
 
@@ -9,8 +9,8 @@ const opts = {
 }
 
 module.exports = () => request(opts)
-	.then(S.pipe([
-		S.prop('body'),
+	.then(R.pipe(
+		R.prop('body'),
 		JSON.parse,
-		S.prop('fact'),
-	]))
+		R.prop('fact')
+	))

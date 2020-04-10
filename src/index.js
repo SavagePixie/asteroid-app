@@ -1,5 +1,6 @@
 'use strict'
-const S = require('sanctuary')
+const R = require('ramda')
+const bodyParser = require('body-parser')
 const express = require('express')
 const morgan = require('morgan')
 const twilio = require('twilio')
@@ -11,25 +12,37 @@ const asteroid = require('lib/asteroid')({
 	key: conf.nasa.apiKey,
 })
 const cat = require('lib/cat')
+const parseRequest = require('lib/parseRequest')
 
 const { addText, downcase, questionify } = require('lib/helper')
 
 const twiClient = new twilio(conf.twilioSid, conf.twilioToken)
+
+const formatCatFact = R.pipe(
+	downcase,
+	questionify,
+	addText('Sorry, I didn\'t understand your request, but did you know that')
+)
+
+
 const app = express()
 
 app.use(morgan('dev'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-asteroid('2020-04-17', '2020-04-24')
-	.then(console.log)
-	.catch(console.error)
+app.post('/api', (req, res) => {
+	const lol = parseRequest(req.body.request)
+	if (lol !== null) {
+		asteroid(lol)
+			.then(data => res.json(data[0]))
+	} else {
+		cat()
+			.then(formatCatFact)
+			.then(data => res.json(data))
+	}
 
-cat()
-	.then(S.pipe([
-		downcase,
-		questionify,
-		addText('Sorry, I didn\'t understand your request, but did you know that'),
-	]))
-	.then(console.log)
+})
 
 app.listen(conf.port, () => {
 	console.log(`Listening on port ${conf.port}`)
