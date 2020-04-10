@@ -39,7 +39,7 @@ Asteroid App requires a file named `conf.json` where all the configuration is se
 | port | The port on which you want your server to be available. |
 | twilioSid  | Your primary Twilio account identifier. Find this [in the Console](https://www.twilio.com/console).                                                         |
 | twilioToken   | Used to authenticate. Just like the above, [you'll find this here](https://www.twilio.com/console).                                                         |
-| twilioPhone | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) starting with `whatsapp:`. You can [get one here](https://www.twilio.com/console/phone-numbers/incoming) |
+| twilioPhone | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) starting with `whatsapp:`. You can [get one here](https://www.twilio.com/console/phone-numbers/incoming). |
 
 ### Local development
 
