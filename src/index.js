@@ -21,12 +21,13 @@ const twiClient = new twilio(conf.twilioSid, conf.twilioToken)
 const formatCatFact = R.pipe(
 	downcase,
 	questionify,
-	addText('Sorry, I didn\'t understand your request, but did you know that')
+	addText('Sorry, I didn\'t understand your request, but did you know that'),
+	x => [ x ]
 )
 
 const apiCalls = {
 	ok: asteroid,
-	notOk: cat,
+	notOk: () => cat().then(formatCatFact),
 }
 
 const app = express()
