@@ -24,7 +24,6 @@ const formatCatFact = R.pipe(
 	addText('Sorry, I didn\'t understand your request, but did you know that')
 )
 
-
 const app = express()
 
 app.use(morgan('dev'))
@@ -32,9 +31,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.post('/api', (req, res) => {
-	const lol = parseRequest(req.body.request)
-	if (lol !== null) {
-		asteroid(lol)
+	const info = parseRequest(req.body.request)
+	if (info !== null) {
+		asteroid(info)
 			.then(data => res.json(data[0]))
 	} else {
 		cat()
