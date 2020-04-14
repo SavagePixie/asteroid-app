@@ -41,8 +41,9 @@ app.get('/', (req, res) => {
 app.post('/api', (req, res) => {
 	const twiml = new MsgResponse()
 	twiml.message(JSON.parse(req.body))
-	res.writeHead(200, { 'Content-Type': 'text/xml' })
-	res.end(twiml.toString())
+	res.status(200)
+	res.set({ 'Content-Type': 'text/xml' })
+	res.send(twiml.toString())
 	// const { result, payload } = parseRequest(req.body.request)
 	// apiCalls[result](payload)
 	// 	.then(data => res.json(data))
