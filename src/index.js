@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
 
 app.post('/api', (req, res) => {
 	const twiml = new MsgResponse()
-	twiml.message(JSON.parse(req.body))
+	twiml.message(JSON.stringify(req.body))
 	res.status(200)
 	res.set({ 'Content-Type': 'text/xml' })
 	res.send(twiml.toString())
