@@ -40,10 +40,21 @@ app.get('/', (req, res) => {
 
 app.post('/api', (req, res) => {
 	const twiml = new MsgResponse()
-	twiml.message(JSON.stringify(req.body))
-	res.status(200)
-	res.set({ 'Content-Type': 'text/xml' })
-	res.send(twiml.toString())
+	const { result, payload } = parseRequest(req.body.Body)
+
+	apiCalls[result](payload)
+		.then(data => {
+			twiml.message(data[0])
+			res.status(200)
+			res.set({ 'Content-Type': 'text/xml' })
+			res.send(twiml.toString())
+		})
+
+	// twiml.message(JSON.stringify(req.body))
+	// res.status(200)
+	// res.set({ 'Content-Type': 'text/xml' })
+	// res.send(twiml.toString())
+
 	// const { result, payload } = parseRequest(req.body.request)
 	// apiCalls[result](payload)
 	// 	.then(data => res.json(data))
