@@ -4,7 +4,8 @@
 	"description": "A WhatsApp bot that finds asteroids close to Earth",
 	"main": "src/index.js",
 	"scripts": {
-		"start": ". ./.env && NODE_PATH=src nodemon",
+		"start": "NODE_PATH=src node src/index.js",
+		"dev": ". ./.env && NODE_PATH=src nodemon",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
