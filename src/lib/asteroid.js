@@ -28,12 +28,12 @@ const parseResponse = ({ near_earth_objects: objs }) => Object
 	.sort((a, b) => a.distance - b.distance)
 
 const writeInfo = asteroid =>
-	`${asteroid.name}
-	Earth approach on ${asteroid.approachDate} at ${asteroid.speed.toFixed(2)} km/s.
-	Passing ${asteroid.distance.toFixed(1)} kilometers away from Earth.
-	It is${asteroid.dangerous ? ' ' : ' not '}potentially dangerous.
-	Its estimated diameter is between ${asteroid.eDiameter.min.toFixed(2)} and ${asteroid.eDiameter.max.toFixed(2)} meters.
-	For more info, check ${asteroid.url}`
+`${asteroid.name}
+Earth approach on ${asteroid.approachDate} at ${asteroid.speed.toFixed(2)} km/s.
+Passing ${asteroid.distance.toFixed(1)} kilometers away from Earth.
+It is${asteroid.dangerous ? ' ' : ' not '}potentially dangerous.
+Its estimated diameter is between ${asteroid.eDiameter.min.toFixed(2)} and ${asteroid.eDiameter.max.toFixed(2)} meters.
+For more info, check ${asteroid.url}`
 
 module.exports = ({ host, path, key }) => ({ start, end }) => request({
 	host,
