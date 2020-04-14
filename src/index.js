@@ -38,6 +38,10 @@ app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.get('/', (req, res) => {
+	res.status(200).json({"result":"hi"})
+})
+
 app.post('/api', (req, res) => {
 	console.log(req.body)
 	const { result, payload } = parseRequest(req.body.request)
