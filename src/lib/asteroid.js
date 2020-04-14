@@ -4,6 +4,8 @@ const R = require('ramda')
 const request = require('lib/request')
 const { take } = require('lib/helper')
 
+const formatNumber = (num, decimals) => num.toLocaleString('en-GB', { maximumFractionDigits: decimals })
+
 const getAsteroidInfo = num => R.pipe(
 	take(num),
 	R.map(writeInfo)
@@ -29,10 +31,10 @@ const parseResponse = ({ near_earth_objects: objs }) => Object
 
 const writeInfo = asteroid =>
 `${asteroid.name}
-Earth approach on ${asteroid.approachDate} at ${asteroid.speed.toFixed(2)} km/s.
-Passing ${asteroid.distance.toFixed(1)} kilometers away from Earth.
+Earth approach on ${asteroid.approachDate} at ${formatNumber(asteroid.speed, 2)} km/s.
+Passing ${formatNumber(asteroid.distance, 1)} kilometers away from Earth.
 It is${asteroid.dangerous ? ' ' : ' not '}potentially dangerous.
-Its estimated diameter is between ${asteroid.eDiameter.min.toFixed(2)} and ${asteroid.eDiameter.max.toFixed(2)} meters.
+Its estimated diameter is between ${formatNumber(asteroid.eDiameter.min, 2)} and ${formatNumber(asteroid.eDiameter.max, 2)} meters.
 For more info, check ${asteroid.url}`
 
 module.exports = ({ host, path, key }) => ({ start, end }) => request({
