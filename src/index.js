@@ -3,7 +3,8 @@ const R = require('ramda')
 const bodyParser = require('body-parser')
 const express = require('express')
 const morgan = require('morgan')
-const twilio = require('twilio')
+const MsgResponse = require('twilio').twiml.MessagingResponse
+const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
 
 const asteroid = require('lib/asteroid')({
 	host: process.env.NASA_HOST,
@@ -14,11 +15,6 @@ const cat = require('lib/cat')
 const parseRequest = require('lib/parseRequest')
 
 const { addText, downcase, questionify } = require('lib/helper')
-
-const twiClient = new twilio(
-	process.env.TWILIO_SID,
-	process.env.TWILIO_TOKEN
-)
 
 const formatCatFact = R.pipe(
 	downcase,
@@ -43,10 +39,13 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api', (req, res) => {
-	console.log(req.body)
-	const { result, payload } = parseRequest(req.body.request)
-	apiCalls[result](payload)
-		.then(data => res.json(data))
+	const twiml = new MsgResponse()
+	twiml.message(JSON.parse(req.body))
+	res.writeHead(200, { 'Content-Type': 'text/xml' })
+	res.end(twiml.toString())
+	// const { result, payload } = parseRequest(req.body.request)
+	// apiCalls[result](payload)
+	// 	.then(data => res.json(data))
 })
 
 app.listen(process.env.PORT, () => {
