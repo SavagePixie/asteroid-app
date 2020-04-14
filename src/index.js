@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 const express = require('express')
 const morgan = require('morgan')
 const MsgResponse = require('twilio').twiml.MessagingResponse
-const twilio = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
 
 const asteroid = require('lib/asteroid')({
 	host: process.env.NASA_HOST,
@@ -35,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-	res.status(200).json({"result":"hi"})
+	res.status(200).json({ response: 'Hi there!' })
 })
 
 app.post('/api', (req, res) => {
@@ -49,15 +48,6 @@ app.post('/api', (req, res) => {
 			res.set({ 'Content-Type': 'text/xml' })
 			res.send(twiml.toString())
 		})
-
-	// twiml.message(JSON.stringify(req.body))
-	// res.status(200)
-	// res.set({ 'Content-Type': 'text/xml' })
-	// res.send(twiml.toString())
-
-	// const { result, payload } = parseRequest(req.body.request)
-	// apiCalls[result](payload)
-	// 	.then(data => res.json(data))
 })
 
 app.listen(process.env.PORT, () => {
