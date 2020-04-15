@@ -5,27 +5,8 @@ const express = require('express')
 const morgan = require('morgan')
 const MsgResponse = require('twilio').twiml.MessagingResponse
 
-const asteroid = require('lib/asteroid')({
-	host: process.env.NASA_HOST,
-	path: process.env.NASA_PATH,
-	key: process.env.NASA_API_KEY,
-})
-const cat = require('lib/cat')
+const callApi = require('lib/callApi')
 const parseRequest = require('lib/parseRequest')
-
-const { addText, downcase, questionify } = require('lib/helper')
-
-const formatCatFact = R.pipe(
-	downcase,
-	questionify,
-	addText('Sorry, I didn\'t understand your request, but did you know that'),
-	x => [ x ]
-)
-
-const apiCalls = {
-	ok: asteroid,
-	notOk: () => cat().then(formatCatFact),
-}
 
 const app = express()
 
@@ -41,7 +22,7 @@ app.post('/api', (req, res) => {
 	const twiml = new MsgResponse()
 	const { result, payload } = parseRequest(req.body.Body)
 
-	apiCalls[result](payload)
+	callApi[result](payload)
 		.then(data => {
 			twiml.message(data[0])
 			res.status(200)
