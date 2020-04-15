@@ -1,5 +1,4 @@
 'use strict'
-const R = require('ramda')
 const bodyParser = require('body-parser')
 const express = require('express')
 const morgan = require('morgan')
@@ -24,7 +23,7 @@ app.post('/api', (req, res) => {
 
 	callApi[result](payload)
 		.then(data => {
-			twiml.message(data[0])
+			data.forEach(x => twiml.message(x))
 			res.status(200)
 			res.set({ 'Content-Type': 'text/xml' })
 			res.send(twiml.toString())
