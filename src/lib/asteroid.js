@@ -2,9 +2,7 @@
 const R = require('ramda')
 
 const request = require('lib/request')
-const { take } = require('lib/helper')
-
-const formatNumber = (num, decimals) => num.toLocaleString('en-GB', { maximumFractionDigits: decimals })
+const { formatNumber, take } = require('lib/helper')
 
 const getAsteroidInfo = num => R.pipe(
 	take(num),
