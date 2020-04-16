@@ -28,6 +28,12 @@ app.post('/api', (req, res) => {
 			res.set({ 'Content-Type': 'text/xml' })
 			res.send(twiml.toString())
 		})
+		.catch(_err => {
+			twiml.message('Oops! It looks like we\'re having some issues. Please, try again later.')
+			res.status(500)
+			res.set({ 'Content-Type': 'text/xml' })
+			res.send(twiml.toString())
+		})
 })
 
 app.listen(process.env.PORT, () => {
