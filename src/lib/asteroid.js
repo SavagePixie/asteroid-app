@@ -2,10 +2,10 @@
 const R = require('ramda')
 
 const request = require('lib/request')
-const { formatNumber, take } = require('lib/helper')
+const { formatNumber } = require('lib/helper')
 
 const getAsteroidInfo = num => R.pipe(
-	take(num),
+	R.take(num),
 	R.map(writeInfo)
 )
 

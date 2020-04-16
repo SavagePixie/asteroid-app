@@ -11,12 +11,9 @@ const questionify = str => str.includes('.')
 
 const formatNumber = (num, decimals) => num.toLocaleString('en-GB', { maximumFractionDigits: decimals })
 
-const take = num => list => list.slice(0, num)
-
 module.exports = {
 	addText,
 	downcase,
 	formatNumber,
 	questionify,
-	take,
 }
