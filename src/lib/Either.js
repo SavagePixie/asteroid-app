@@ -22,10 +22,7 @@ const Right = x => ({
 	}
 })
 
-const fromNullable = x => x != null ? Right(x) : Left(null)
-
 module.exports = {
-	fromNullable,
 	Left,
 	Right,
 }
