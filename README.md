@@ -28,18 +28,14 @@ Asteroid App is an automated WhatsApp account that provides information about th
 
 ### Configuration
 
-Asteroid App requires a file named `conf.json` where all the configuration is set. It should contain a JSON object with the following entries:
+Asteroid App requires to configure environment variables related to NASA and the port on which the server is to listen for incoming requests. You should declare the following environment variables:
 
 | Key | Description                                                                                                                                                  |
 | :---------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| nasa | An object with the keys `apiKey`, `host` and `path`. |
-| nasa.apiKey | Your key to the NASA API. You can get one [on their website](https://api.nasa.gov/index.html#signUp) |
-| nasa.host | It should have the following value: `"api.nasa.gov"`. |
-| nasa.path | It should have the following value: `"/neo/rest/v1/feed"`. |
-| port | The port on which you want your server to be available. |
-| twilioSid  | Your primary Twilio account identifier. Find this [in the Console](https://www.twilio.com/console).                                                         |
-| twilioToken   | Used to authenticate. Just like the above, [you'll find this here](https://www.twilio.com/console).                                                         |
-| twilioPhone | A Twilio phone number in [E.164 format](https://en.wikipedia.org/wiki/E.164) starting with `whatsapp:`. You can [get one here](https://www.twilio.com/console/phone-numbers/incoming). |
+| NASA_API_KEY | Your key to the NASA API. You can get one [on their website](https://api.nasa.gov/index.html#signUp) |
+| NASA_HOST | It should have the following value: `"api.nasa.gov"`. |
+| NASA_PATH | It should have the following value: `"/neo/rest/v1/feed"`. |
+| PORT | The port on which you want your server to be available. |
 
 ### Local development
 
@@ -58,13 +54,19 @@ cd asteroid-app
 npm install
 ```
 
-3. Run the application
+3. Run the application in dev mode
+
+```bash
+npm run dev
+```
+
+4. After you're happy with all your changes, deploy the application in your server and start node
 
 ```bash
 npm start
 ```
 
-That's it!
+In order to link the server with your Twilio sandbox, you will need to configure [your WhatsApp sandbox](https://www.twilio.com/console/sms/whatsapp/sandbox). To do so, after you've deployed your application, set the option `WHEN A MESSAGE COMES IN` in your WhatsApp sandbox to your server's url followed by `/api` (e.g. `https://www.example.url.net/api`)
 
 ### Tests
 
