@@ -10,6 +10,13 @@ const parseRequest = require('lib/parseRequest')
 const app = express()
 
 app.use(morgan('dev'))
+app.use(helmet({
+	contentSecurityPolicy: {
+		directives: {
+			defaultSrc: [ "'self'" ],
+		}
+	},
+}))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
