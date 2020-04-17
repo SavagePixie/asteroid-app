@@ -5,8 +5,7 @@
 	"main": "src/index.js",
 	"scripts": {
 		"start": "NODE_PATH=src node src/index.js",
-		"dev": ". ./.env && NODE_PATH=src nodemon",
-		"test": "NODE_PATH=src:test tap --reporter=specy --test-env=NODE_ENV=test 'test/**/*.test.js'"
+		"dev": ". ./.env && NODE_PATH=src nodemon"
 	},
 	"repository": {
 		"type": "git",
@@ -33,7 +32,6 @@
 		"twilio": "^3.42.0"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.3",
-		"tap": "^14.10.7"
+		"nodemon": "^2.0.3"
 	}
 }
