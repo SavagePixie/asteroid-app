@@ -38,10 +38,10 @@ _For more info, check ${asteroid.url}_`
 
 module.exports = ({ host, path, key }) => ({ start, end }) => request({
 	host,
-	path: `${path}?start_date=${start}&end_date=${end}&api_key=${key}`
+	path: `${path}?start_date=${start}&end_date=${end}&api_key=${key}`,
 }).then(R.pipe(
 	R.prop('body'),
 	JSON.parse,
 	parseResponse,
-	getAsteroidInfo(1),
+	getAsteroidInfo(1)
 ))

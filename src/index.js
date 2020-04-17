@@ -15,7 +15,7 @@ app.use(helmet({
 	contentSecurityPolicy: {
 		directives: {
 			defaultSrc: [ "'self'" ],
-		}
+		},
 	},
 }))
 app.use(bodyParser.urlencoded({ extended: false }))

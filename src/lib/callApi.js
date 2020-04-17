@@ -2,7 +2,7 @@
 const {
 	NASA_HOST: host,
 	NASA_PATH: path,
-	NASA_API_KEY: key
+	NASA_API_KEY: key,
 } = process.env
 
 const R = require('ramda')

@@ -5,10 +5,6 @@ const Left = x => ({
 	map: _f => Left(x),
 	fold: (f, _g) => f(x),
 	inspect: () => `Left(${x})`,
-	trace: t => {
-		console.log(`${t}: Left(${x})`)
-		return Left(x)
-	}
 })
 
 const Right = x => ({
@@ -16,10 +12,6 @@ const Right = x => ({
 	map: f => Right(f(x)),
 	fold: (_f, g) => g(x),
 	inspect: () => `Right(${x})`,
-	trace: t => {
-		console.log(`${t}: Right(${x})`)
-		return Right(x)
-	}
 })
 
 module.exports = {
