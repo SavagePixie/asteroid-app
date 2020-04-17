@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "NODE_PATH=src node src/index.js",
 		"dev": ". ./.env && NODE_PATH=src nodemon",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "NODE_PATH=src:test tap --reporter=specy --test-env=NODE_ENV=test 'test/**/*.test.js'"
 	},
 	"repository": {
 		"type": "git",
@@ -33,6 +33,7 @@
 		"twilio": "^3.42.0"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.3"
+		"nodemon": "^2.0.3",
+		"tap": "^14.10.7"
 	}
 }
