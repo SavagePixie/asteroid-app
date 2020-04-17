@@ -16,5 +16,6 @@ module.exports = options => new Promise((resolve, reject) => {
 		}))
 	})
 	req.on('error', reject)
+	if (body !== undefined) req.write(body)
 	req.end()
 })
